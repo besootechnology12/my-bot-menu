@@ -1,0 +1,16 @@
+import telebot
+from telebot import types
+
+bot = telebot.TeleBot("8513051723:AAFiuQeKdTBd74gBpoYjjwVlaEIO58Z9qb8")
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = types.InlineKeyboardMarkup()
+    # ضع رابط ملفك الذي رفعته في الخطوة السابقة
+    web_info = types.WebAppInfo(url="https://your-site.com/index.html")
+    btn = types.InlineKeyboardButton(text="فتح القائمة الملونة 🎨", web_app=web_info)
+    markup.add(btn)
+    bot.send_message(message.chat.id, "اضغط لفتح القائمة:", reply_markup=markup)
+
+bot.polling()
+
