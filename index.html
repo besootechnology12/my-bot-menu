@@ -1,16 +1,94 @@
-import telebot
-from telebot import types
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة البوت</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin: 0;
+        }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 10px;
+        }
+        .row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.1s;
+            border: none;
+            color: white;
+            min-width: 100px;
+        }
+        .btn:active { transform: scale(0.95); }
+        /* ألوان الأقسام - استخدم ألوان الإيموجي كما في صورتك */
+        .red    { background: #e74c3c; } /* فودافون */
+        .orange { background: #e67e22; } /* اتصالات */
+        .green  { background: #2ecc71; } /* تموين */
+        .blue   { background: #3498db; } /* واي */
+        .purple { background: #9b59b6; } /* النترا */
+        .pink   { background: #e91e63; } /* أورنج */
+        .teal   { background: #1abc9c; } /* Services Axis Pay */
+        .gold   { background: #f39c12; } /* الرقم القومي */
+        .dark   { background: #2c3e50; } /* الإحالات / الدعم */
+    </style>
+</head>
+<body>
+    <h2>🪄 بوت سحب الداتا</h2>
+    <div class="menu">
+        <div class="row">
+            <button class="btn red" onclick="send('قسم_فودافون')">🔴 فودافون</button>
+            <button class="btn orange" onclick="send('قسم_اتصالات')">🟠 اتصالات</button>
+        </div>
+        <div class="row">
+            <button class="btn green" onclick="send('قسم_تموين')">🟢 تموين</button>
+            <button class="btn blue" onclick="send('قسم_واي')">🔵 واي</button>
+        </div>
+        <div class="row">
+            <button class="btn purple" onclick="send('قسم_النترا')">🟣 النترا</button>
+            <button class="btn pink" onclick="send('قسم_اورنج')">🩷 اورنج</button>
+        </div>
+        <div class="row">
+            <button class="btn teal" onclick="send('Services_Axis_Pay')">🩵 Services Axis Pay</button>
+        </div>
+        <div class="row">
+            <button class="btn gold" onclick="send('رقم_قومي')">🟡 موقع الرقم القومي</button>
+        </div>
+        <div class="row">
+            <button class="btn dark" onclick="send('إحالات')">⬛️ الإحالات</button>
+            <button class="btn dark" onclick="send('دعم_فني')">⬛️ الدعم الفني</button>
+        </div>
+    </div>
 
-bot = telebot.TeleBot("8513051723:AAFiuQeKdTBd74gBpoYjjwVlaEIO58Z9qb8")
+    <script>
+        // دوال تيليجرام ويب آب
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand(); // توسيع الشاشة
 
-@bot.message_handler(commands=['start'])
-def start(message):
-    markup = types.InlineKeyboardMarkup()
-    # ضع رابط ملفك الذي رفعته في الخطوة السابقة
-    web_info = types.WebAppInfo(url="https://your-site.com/index.html")
-    btn = types.InlineKeyboardButton(text="فتح القائمة الملونة 🎨", web_app=web_info)
-    markup.add(btn)
-    bot.send_message(message.chat.id, "اضغط لفتح القائمة:", reply_markup=markup)
-
-bot.polling()
-
+        function send(data) {
+            // إرسال البيانات للبوت عند الضغط
+            tg.sendData(data);
+            // يمكن إغلاق التطبيق تلقائياً
+            tg.close();
+        }
+    </script>
+</body>
+</html>
