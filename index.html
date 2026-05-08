@@ -2,92 +2,106 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قائمة البوت</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>بوت سحب الداتا</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: #1a1a2e;
-            color: white;
-            text-align: center;
-            padding: 10px;
             margin: 0;
-        }
-        .menu {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 10px;
-        }
-        .row {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 15px 20px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: transform 0.1s;
-            border: none;
+            padding: 16px;
+            background: #0d1117;
             color: white;
-            min-width: 100px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            direction: rtl;
+            text-align: center;
         }
-        .btn:active { transform: scale(0.95); }
-        /* ألوان الأقسام - استخدم ألوان الإيموجي كما في صورتك */
-        .red    { background: #e74c3c; } /* فودافون */
-        .orange { background: #e67e22; } /* اتصالات */
-        .green  { background: #2ecc71; } /* تموين */
-        .blue   { background: #3498db; } /* واي */
-        .purple { background: #9b59b6; } /* النترا */
-        .pink   { background: #e91e63; } /* أورنج */
-        .teal   { background: #1abc9c; } /* Services Axis Pay */
-        .gold   { background: #f39c12; } /* الرقم القومي */
-        .dark   { background: #2c3e50; } /* الإحالات / الدعم */
+        .header {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #f0c040;
+        }
+        .steps {
+            background: #161b22;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 2;
+            text-align: right;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .box {
+            border-radius: 14px;
+            padding: 24px 8px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 6px 10px rgba(0,0,0,0.4);
+            transition: 0.2s;
+            cursor: pointer;
+            color: white;
+            border: none;
+            width: 100%;
+            min-height: 90px;
+        }
+        .box:active {
+            transform: scale(0.95);
+            filter: brightness(0.9);
+        }
+        /* الألوان المطابقة للصورة */
+        .red    { background: #e74c3c; }  /* فودافون */
+        .orange { background: #e67e22; }  /* اتصالات */
+        .green  { background: #27ae60; }  /* تموين */
+        .blue   { background: #2980b9; }  /* واي */
+        .purple { background: #8e44ad; }  /* النترا */
+        .pink   { background: #e84393; }  /* اورنج */
+        .teal   { background: #16a085; }  /* Services Axis Pay */
+        .gold   { background: #f39c12; }  /* الرقم القومي */
+        .dark   { background: #2c3e50; }  /* الإحالات والدعم */
+        .full-width {
+            grid-column: span 2;
+        }
     </style>
 </head>
 <body>
-    <h2>🪄 بوت سحب الداتا</h2>
-    <div class="menu">
-        <div class="row">
-            <button class="btn red" onclick="send('قسم_فودافون')">🔴 فودافون</button>
-            <button class="btn orange" onclick="send('قسم_اتصالات')">🟠 اتصالات</button>
-        </div>
-        <div class="row">
-            <button class="btn green" onclick="send('قسم_تموين')">🟢 تموين</button>
-            <button class="btn blue" onclick="send('قسم_واي')">🔵 واي</button>
-        </div>
-        <div class="row">
-            <button class="btn purple" onclick="send('قسم_النترا')">🟣 النترا</button>
-            <button class="btn pink" onclick="send('قسم_اورنج')">🩷 اورنج</button>
-        </div>
-        <div class="row">
-            <button class="btn teal" onclick="send('Services_Axis_Pay')">🩵 Services Axis Pay</button>
-        </div>
-        <div class="row">
-            <button class="btn gold" onclick="send('رقم_قومي')">🟡 موقع الرقم القومي</button>
-        </div>
-        <div class="row">
-            <button class="btn dark" onclick="send('إحالات')">⬛️ الإحالات</button>
-            <button class="btn dark" onclick="send('دعم_فني')">⬛️ الدعم الفني</button>
-        </div>
+    <div class="header">🪄 بوت سحب الداتا</div>
+
+    <div class="steps">
+        📋 خطوات السحب:<br>
+        ① أرسل رقم المحفظة<br>
+        ② أرسل اسم المحفظة<br>
+        ③ أرسل الرقم المرغوب السحب عليه<br>
+        ⏳ ثم تحلّى بالصبر وصلي على خير البرية
+    </div>
+
+    <div class="grid">
+        <button class="box red" onclick="choose('قسم_فودافون')">📞 قسم فودافون</button>
+        <button class="box orange" onclick="choose('قسم_اتصالات')">📶 قسم اتصالات</button>
+        <button class="box green" onclick="choose('قسم_تموين')">🍞 قسم تموين</button>
+        <button class="box blue" onclick="choose('قسم_واي')">📡 قسم واي</button>
+        <button class="box purple" onclick="choose('قسم_النترا')">💻 قسم النترا</button>
+        <button class="box pink" onclick="choose('قسم_اورنج')">📱 قسم اورنج</button>
+        <button class="box teal full-width" onclick="choose('Services_Axis_Pay')">💳 Services Axis Pay</button>
+        <button class="box gold full-width" onclick="choose('رقم_قومي')">🆔 موقع الرقم القومي</button>
+        <button class="box dark" onclick="choose('إحالات')">👥 الإحالات</button>
+        <button class="box dark" onclick="choose('دعم_فني')">🛠️ الدعم الفني</button>
     </div>
 
     <script>
-        // دوال تيليجرام ويب آب
         const tg = window.Telegram.WebApp;
         tg.ready();
-        tg.expand(); // توسيع الشاشة
+        tg.expand(); // يأخذ كامل الشاشة
 
-        function send(data) {
-            // إرسال البيانات للبوت عند الضغط
-            tg.sendData(data);
-            // يمكن إغلاق التطبيق تلقائياً
-            tg.close();
+        function choose(data) {
+            tg.sendData(data);   // يبعت للبوت الكود اللي اخترته
+            tg.close();          // يقفل التطبيق تلقائياً
         }
     </script>
 </body>
